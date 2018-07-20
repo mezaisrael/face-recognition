@@ -1,0 +1,17 @@
+html {
+    height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+
+
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier;
+  /*background: linear-gradient(130deg,  #FF5EDF 0%, cyan 100%);*/
+  background: linear-gradient(45deg, #FF5EDF, #04c8de);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
