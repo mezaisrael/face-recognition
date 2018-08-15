@@ -35,8 +35,20 @@ class App extends Component {
       box: {},
       showBox: 'hidden',
       route: 'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        // id: '',
+        // name: '',
+        // email: '',
+        // password: '',
+        // entries: 0,
+        // joined: ''
+      }
     }
+  }
+
+  loadUser = user => {
+    this.setState({ user: user });
   }
 
   calculateFaceLocation = (data) => {
@@ -101,7 +113,7 @@ class App extends Component {
                     <FaceRecognition imageUrl={imageUrl} box={box} showBox={showBox}/>
                   </div>
     } else if(route === 'register') {
-      component = <Register onRouteChange={this.onRouteChange}/>
+      component = <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
     }
 
     return (

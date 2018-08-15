@@ -3,8 +3,6 @@ import './FaceRecognition.css'
 
 const FaceRecognition = ({imageUrl, box, showBox}) => {
 
-	console.log(showBox);
-
 	return(
 		<div className="mt2 faceContainer">
 			<div className='absolute'>
