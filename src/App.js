@@ -80,10 +80,25 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input, showBox: 'hidden'});
 
-    app.models.predict(
-      "a403429f2ddf4b49b307e318f00e528b",
-      this.state.input)
-      .then(response => this.displayBox( this.calculateFaceLocation(response) ))
+    app.models
+      .predict(
+        "a403429f2ddf4b49b307e318f00e528b",
+        this.state.input)
+      .then(response => {
+        if(response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({id:this.state.user.id})
+          })
+          .then(response => response.json())
+          .then(user => {
+            this.setState({user: user});
+          });
+
+        this.displayBox( this.calculateFaceLocation(response) )
+        }//end if statement
+      })
       .then(err => console.log(err));
   }
 
@@ -102,11 +117,11 @@ class App extends Component {
     let component;
    
     if(route === 'signin') {
-      component = <SignIn onRouteChange={this.onRouteChange}/>
+      component = <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
     } else if (route === 'home') {
       component = <div>
                     <Logo/>
-                    <Rank/>
+                    <Rank name={this.state.user.name} entries={this.state.user.entries}/>
                     <ImageLinkForm
                     onChangeInput={this.onInputChange}
                     submit={this.onButtonSubmit}/>
